@@ -1,0 +1,54 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+#Question 1
+# 18 variables, 242 observations
+
+#Question 2
+```{r}
+library(tidyverse)
+```
+
+```{r}
+trimmed <- select(starbucks_drinkMenu_expanded, Beverage_category:Calories)
+summarise(trimmed, sum(as.integer(is.na(Calories))))
+
+```
+#Question 3
+```{r}
+mutate(trimmed, calorie_diff = Calories - 135)
+```
+#Question 4
+```{r}
+trimmed_grouped <-group_by(trimmed, Beverage_category)
+summarise(trimmed_grouped, avg_cals = mean(Calories)) %>% 
+  arrange(desc(avg_cals))
+```
+#9 categories, 3 most calorific are Smoothies, Frappuccino Blended Coffee and Signature, 3 least calorific are Coffee, Shaken Iced and Classic Espresso Drinks.
+
+#Question5
+```{r}
+trimmed_grouped <-group_by(trimmed, Beverage_prep)
+summarise(trimmed_grouped, avg_cals = mean(Calories)) %>% 
+  arrange(desc(avg_cals))
+```
+# 13 Beverage_prep types
+
+#Question 6
+```{r}
+avg_all_cals = pull(summarise(trimmed, avg_cals = mean(Calories)))
+trimmed_grouped <- group_by(trimmed, Beverage_prep) %>% 
+  summarise(avg_cals = mean(Calories)) %>%  
+  filter(avg_cals > avg_all_cals)
+  trimmed_grouped
+```
+#Question 7
+```{r}
+filter(trimmed, Beverage_category == "Coffee") %>% 
+  arrange(Calories) %>% 
+  head(1)
+```
+#Answer is a Short, with 3 calories only!
+

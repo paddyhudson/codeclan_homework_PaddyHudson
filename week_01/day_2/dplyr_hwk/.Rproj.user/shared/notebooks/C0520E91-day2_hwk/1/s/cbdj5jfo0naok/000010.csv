@@ -1,0 +1,5 @@
+"0","avg_all_cals = pull(summarise(trimmed, avg_cals = mean(Calories)))"
+"0","trimmed_grouped <- group_by(trimmed, Beverage_prep) %>% "
+"0","  summarise(avg_cals = mean(Calories)) %>%  "
+"0","  filter(avg_cals > avg_all_cals)"
+"0","  trimmed_grouped"

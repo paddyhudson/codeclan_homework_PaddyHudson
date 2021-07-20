@@ -1,0 +1,3 @@
+"0","filter(trimmed, Beverage_category == ""Coffee"") %>% "
+"0","  arrange(Calories) %>% "
+"0","  head(1)"
