@@ -3,7 +3,7 @@
     "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_01/day_2/dplyr_hwk/day2_hwk.Rmd",
     "project_path": "day2_hwk.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "552580049",
     "contents": "",
     "dirty": false,
     "created": 1626796812713.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "53,0",
-        "scrollLine": "52"
+        "cursorPosition": "44,20",
+        "scrollLine": "36"
     },
     "folds": "",
-    "lastKnownWriteTime": 1626800612,
+    "lastKnownWriteTime": 1626860175,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1626801575924,
+    "last_content_update": 1626860176109,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,0 +1,6 @@
+"0","movies_runtime <- movies_selected %>%"
+"0","  mutate(runtime = na_if(runtime, ""0""))"
+"0","movies_runtime %>% "
+"0","summarise (title_na = sum(is.na(title)), "
+"0","             runtime_na = sum(is.na(runtime)), "
+"0","             budget_na = sum(is.na(budget)))"

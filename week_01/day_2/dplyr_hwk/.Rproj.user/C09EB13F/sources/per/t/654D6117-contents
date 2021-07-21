@@ -13,7 +13,7 @@ library(tidyverse)
 
 ```{r}
 trimmed <- select(starbucks_drinkMenu_expanded, Beverage_category:Calories)
-summarise(trimmed, sum(as.integer(is.na(Calories))))
+summarise(trimmed, count_NA_calories = sum(as.integer(is.na(Calories))))
 
 ```
 #Question 3
@@ -24,7 +24,9 @@ mutate(trimmed, calorie_diff = Calories - 135)
 ```{r}
 trimmed_grouped <-group_by(trimmed, Beverage_category)
 summarise(trimmed_grouped, avg_cals = mean(Calories)) %>% 
-  arrange(desc(avg_cals))
+  arrange(desc(avg_cals)) %>% 
+  # head(3)
+  tail (3)
 ```
 #9 categories, 3 most calorific are Smoothies, Frappuccino Blended Coffee and Signature, 3 least calorific are Coffee, Shaken Iced and Classic Espresso Drinks.
 

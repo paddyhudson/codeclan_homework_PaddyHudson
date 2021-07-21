@@ -1,0 +1,2 @@
+"0","movies_selected <- movies %>% "
+"0","  select(title, runtime, budget)"

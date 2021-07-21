@@ -1,0 +1,2 @@
+"0","movies %>% "
+"0","  summarise(total_na = sum(is.na(across(where(is.character)))))"

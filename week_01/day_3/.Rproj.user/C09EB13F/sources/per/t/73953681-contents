@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+#Qestion 1
+```{r}
+library(tidyverse)
+library(janitor)
+movies <- read_csv("data/movies.csv")
+movies
+```
+# Initial thoughts
+# Some variables could be removed: original name, ?homepage, overview, tagline
+# Recode original_language to display more meaningful data
+# Doesn't seem to be much missing data
+
+#Question 2
+
+```{r}
+movies_selected <- movies %>% 
+  select(title, runtime, budget)
+```
+
+#Question 3
+
+```{r}
+movies_selected %>% 
+  summarise (title_na = sum(is.na(title)), 
+             runtime_na = sum(is.na(runtime)), 
+             budget_na = sum(is.na(budget)))
+```
+
+#Question 4
+
+```{r}
+movies_runtime <- movies_selected %>%
+  mutate(runtime = na_if(runtime, "0"))
+movies_runtime %>% 
+summarise (title_na = sum(is.na(title)), 
+             runtime_na = sum(is.na(runtime)), 
+             budget_na = sum(is.na(budget)))
+```
+# there are now 37 missing runtime values
+
+#Question 5
+
+
+```{r}
+med_runtime = median(movies_runtime$runtime, na.rm = TRUE)
+
+movies_imputed <- movies_runtime %>% 
+  mutate(runtime = coalesce(runtime, med_runtime))
+  summarise (movies_imputed, runtime_na = sum(is.na(runtime)))
+```
+#there are now no missing values in movies_imputed
+
+#Question 6
+
+```{r}
+movies_imputed %>% 
+  slice_max(runtime, n = 10)
+movies_imputed %>% 
+  slice_min(runtime, n = 10)
+```
+
+#Question 7
+
+```{r}
+med_budget = median(movies_imputed$budget)
+movies_imputed <- mutate(movies_imputed, budget = if_else(budget < 100, med_budget, budget))
+```
+
+#Extension 1
+
+```{r}
+movie_budgets <- movies_imputed %>% 
+  mutate(budget_type = case_when(
+    (budget >= 12e6 & budget < 40e6) ~ "Medium Budget",
+    budget < 12e6 ~ "Small Budget",
+    budget >= 40e6 ~ "Big Budget"#,
+   # TRUE ~ "Medium Budget"
+  ))
+```
+
+#Extension 2
+
+```{r}
+movies %>% 
+  summarise(total_na = sum(is.na(across(where(is.character)))))
+movies %>% 
+  summarise(total_na = sum(is.na(across(where(is.numeric)))))
+```
+
