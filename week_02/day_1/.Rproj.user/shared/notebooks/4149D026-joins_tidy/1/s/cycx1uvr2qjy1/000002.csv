@@ -1,0 +1,8 @@
+"0","hat_obs_dat <- hat_observations %>% "
+"0","  unite("
+"0","    col = date,"
+"0","    day:year,"
+"0","    sep = ""-"""
+"0","  ) %>%"
+"0","  filter(hat_type == ""beret"") %>% "
+"0","  slice_max(observation_count, n = 1)"

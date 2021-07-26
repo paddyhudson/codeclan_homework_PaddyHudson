@@ -1,0 +1,2 @@
+"0","card_customer <- card %>%"
+"0","  inner_join(customer, by = c(""cust_id"" = ""cust_id""))"

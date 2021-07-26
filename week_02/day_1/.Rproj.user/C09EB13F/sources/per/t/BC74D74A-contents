@@ -1,0 +1,104 @@
+---
+title: "Joins and Tidy Data"
+output: html_notebook
+---
+
+#load libraries, read in data, clean column names using janitor
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+card <- read_csv("data/CardBase.csv") %>%  clean_names()
+customer <- read_csv("data/CustomerBase.csv") %>%  clean_names()
+fraud <- read_csv("data/FraudBase.csv") %>%  clean_names()
+transaction <- read_csv("data/TransactionBase.csv") %>%  clean_names()
+
+```
+
+#join customer to card, expecting the same number of rows as card
+#all cards must belong to a customer so we can use inner_join
+#left_join would also work
+
+```{r}
+card_customer <- card %>%
+  inner_join(customer, by = c("cust_id" = "cust_id"))
+```
+
+#join fraud to transaction - keep all rows of both tables
+
+```{r}
+fraud_transaction <- fraud %>% 
+  full_join(transaction, by = c("transaction_id" = "transaction_id"))
+```
+
+#this has the same number of rows as transaction, so we know that all fraud rows
+#have been matched to a transaction row
+
+#join card to transaction, keeping only once instance of each matched card
+
+```{r}
+card_transaction <- card %>% 
+  semi_join(transaction, by = c("card_number" = "credit_card_id"))
+```
+
+#read in hat_observations
+#separate observations into two columns
+
+```{r}
+hat_observations <- read_csv("data/hat_observations.csv") %>% 
+  separate(
+    col = observation,
+    into = c("hat_colour", "hat_type"),
+    sep = ","
+    )
+
+```
+
+#create a united data column
+#filter beret rows and get the max observations
+
+```{r}
+hat_obs_dat <- hat_observations %>% 
+  unite(
+    col = date,
+    day:year,
+    sep = "-"
+  ) %>%
+  filter(hat_type == "beret") %>% 
+  slice_max(observation_count, n = 1)
+
+#18 June 2018 is when the most berets were observed!
+```
+
+#extension: joins
+#combine all four datasets into one
+
+```{r}
+#we want the card columns first, so start with card
+
+combined <- card %>%
+  inner_join(customer, by = c("cust_id" = "cust_id")) %>%
+#use right join to get the correct column order
+  right_join(transaction, by = c("card_number" = "credit_card_id")) %>%
+  right_join(fraud, by = c("transaction_id" = "transaction_id"))
+  
+```
+
+#extension: tidy
+#read in new dataset
+#pivot longer to get one row per id per question
+#separate exam_question into fluff and question number
+#use select to remove fluff
+
+```{r}
+exam_scores <- read_csv("data/exam_scores.csv") %>%
+  pivot_longer(
+    cols = exam_Q1:exam_Q10,
+    names_to = "exam_question",
+    values_to = "score"
+  ) %>% 
+  separate(exam_question, c("fluff", "question"), sep = "Q") %>% 
+  select(-fluff)
+```
+

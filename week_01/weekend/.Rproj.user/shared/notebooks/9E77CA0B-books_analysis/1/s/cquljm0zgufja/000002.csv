@@ -1,0 +1,75 @@
+"0","#Load the data file using read_csv"
+"0","locale(""ja"")"
+"1","<locale>
+"
+"1","Numbers:  "
+"1",""
+"1","123,456.78"
+"1",""
+"1","
+"
+"1","Formats:  "
+"1",""
+"1","%AD"
+"1",""
+"1"," / "
+"1",""
+"1","%AT"
+"1",""
+"1","
+"
+"1","Timezone: "
+"1",""
+"1","UTC"
+"1",""
+"1","
+"
+"1","Encoding: "
+"1",""
+"1","UTF-8"
+"1",""
+"1","
+"
+"1","<date_names>
+"
+"1","Days:   "
+"1",""
+"1","日曜日 (日), 月曜日 (月), 火曜日 (火), 水曜日 (水), 木曜日 (木), 金曜日 (金), 土曜日
+        (土)"
+"1",""
+"1","
+"
+"1","Months: "
+"1",""
+"1","1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月"
+"1",""
+"1","
+"
+"1","AM/PM:  "
+"1",""
+"1","午前/午後"
+"1",""
+"1","
+"
+"0","good_reads_books_jpn <- read_csv(""data/books.csv"")"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------------------------[39m
+cols(
+  rowid = [32mcol_double()[39m,
+  bookID = [32mcol_double()[39m,
+  title = [31mcol_character()[39m,
+  authors = [31mcol_character()[39m,
+  average_rating = [32mcol_double()[39m,
+  isbn = [31mcol_character()[39m,
+  isbn13 = [31mcol_character()[39m,
+  language_code = [31mcol_character()[39m,
+  num_pages = [32mcol_double()[39m,
+  ratings_count = [32mcol_double()[39m,
+  text_reviews_count = [32mcol_double()[39m,
+  publication_date = [31mcol_character()[39m,
+  publisher = [31mcol_character()[39m
+)
+
+"
+"0","good_reads_books_jpn %>% "
+"0","  filter(language_code ==""jpn"")"

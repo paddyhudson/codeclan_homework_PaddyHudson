@@ -1,0 +1,2 @@
+"0","card_transaction <- card %>% "
+"0","  semi_join(transaction, by = c(""card_number"" = ""credit_card_id""))"

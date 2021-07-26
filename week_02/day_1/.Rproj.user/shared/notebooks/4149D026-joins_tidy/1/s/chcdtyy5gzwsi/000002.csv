@@ -1,0 +1,2 @@
+"0","fraud_transaction <- fraud %>% "
+"0","  full_join(transaction, by = c(""transaction_id"" = ""transaction_id""))"

@@ -1,0 +1,25 @@
+"0","exam_scores <- read_csv(""data/exam_scores.csv"") %>%"
+"0","  pivot_longer("
+"0","    cols = exam_Q1:exam_Q10,"
+"0","    names_to = ""exam_question"","
+"0","    values_to = ""score"""
+"0","  ) %>% "
+"0","  separate(exam_question, c(""fluff"", ""question""), sep = ""Q"") %>% "
+"0","  select(-fluff)"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------------------------[39m
+cols(
+  id = [32mcol_double()[39m,
+  exam_Q1 = [32mcol_double()[39m,
+  exam_Q2 = [32mcol_double()[39m,
+  exam_Q3 = [32mcol_double()[39m,
+  exam_Q4 = [32mcol_double()[39m,
+  exam_Q5 = [32mcol_double()[39m,
+  exam_Q6 = [32mcol_double()[39m,
+  exam_Q7 = [32mcol_double()[39m,
+  exam_Q8 = [32mcol_double()[39m,
+  exam_Q9 = [32mcol_double()[39m,
+  exam_Q10 = [32mcol_double()[39m
+)
+
+"
