@@ -1,12 +1,12 @@
 {
-    "id": "73953681",
-    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_01/day_3/hwk_cleaning_data.Rmd",
-    "project_path": "hwk_cleaning_data.Rmd",
+    "id": "928CC6D4",
+    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_01/weekend/books_analysis.Rmd",
+    "project_path": "books_analysis.Rmd",
     "type": "r_markdown",
-    "hash": "3278948468",
+    "hash": "1034681424",
     "contents": "",
     "dirty": false,
-    "created": 1626881610954.0,
+    "created": 1627232803865.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "54,50",
-        "scrollLine": "44"
+        "cursorPosition": "65,41",
+        "scrollLine": "55"
     },
     "folds": "",
-    "lastKnownWriteTime": 1626895237,
+    "lastKnownWriteTime": 1627285179,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1626945481386,
+    "last_content_update": 1627285179185,
     "read_only": false,
     "read_only_alternatives": []
 }

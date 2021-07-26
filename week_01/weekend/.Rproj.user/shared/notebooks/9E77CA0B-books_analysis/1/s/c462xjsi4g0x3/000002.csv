@@ -1,0 +1,5 @@
+"0","authors_ratings <- books_trimmed_test %>%"
+"0","  filter(!str_detect(authors, ""/"")) %>% "
+"0","  group_by(authors) %>% "
+"0","  summarise(book_count = n(), mean_rating = mean(average_rating)) %>% "
+"0","  rename(author = authors)"
