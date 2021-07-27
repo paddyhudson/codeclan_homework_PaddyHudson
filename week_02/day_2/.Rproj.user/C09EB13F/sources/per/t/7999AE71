@@ -1,12 +1,12 @@
 {
-    "id": "BC74D74A",
-    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_02/day_1/joins_tidy.Rmd",
-    "project_path": "joins_tidy.Rmd",
+    "id": "7999AE71",
+    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_02/day_2/rtweet.Rmd",
+    "project_path": "rtweet.Rmd",
     "type": "r_markdown",
-    "hash": "3913072011",
+    "hash": "1114553181",
     "contents": "",
     "dirty": false,
-    "created": 1627313800274.0,
+    "created": 1627404965625.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "83,64",
-        "scrollLine": "73"
+        "cursorPosition": "157,53",
+        "scrollLine": "150"
     },
     "folds": "",
-    "lastKnownWriteTime": 1627374885,
+    "lastKnownWriteTime": 1627412733,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1627374885185,
+    "last_content_update": 1627412733827,
     "read_only": false,
     "read_only_alternatives": []
 }

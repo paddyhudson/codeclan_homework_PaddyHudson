@@ -1,0 +1,54 @@
+"0","library(tidyverse)"
+"0","library(janitor)"
+"2","
+Attaching package: ‘janitor’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    chisq.test, fisher.test
+
+"
+"0","card <- read_csv(""data/CardBase.csv"") %>%  clean_names()"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------------------------[39m
+cols(
+  Card_Number = [31mcol_character()[39m,
+  Card_Family = [31mcol_character()[39m,
+  Credit_Limit = [32mcol_double()[39m,
+  Cust_ID = [31mcol_character()[39m
+)
+
+"
+"0","customer <- read_csv(""data/CustomerBase.csv"") %>%  clean_names()"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------------------------[39m
+cols(
+  Cust_ID = [31mcol_character()[39m,
+  Age = [32mcol_double()[39m,
+  Customer_Segment = [31mcol_character()[39m,
+  Customer_Vintage_Group = [31mcol_character()[39m
+)
+
+"
+"0","fraud <- read_csv(""data/FraudBase.csv"") %>%  clean_names()"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------------------------[39m
+cols(
+  Transaction_ID = [31mcol_character()[39m,
+  Fraud_Flag = [32mcol_double()[39m
+)
+
+"
+"0","transaction <- read_csv(""data/TransactionBase.csv"") %>%  clean_names()"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------------------------[39m
+cols(
+  Transaction_ID = [31mcol_character()[39m,
+  Transaction_Date = [31mcol_character()[39m,
+  Credit_Card_ID = [31mcol_character()[39m,
+  Transaction_Value = [32mcol_double()[39m,
+  Transaction_Segment = [31mcol_character()[39m
+)
+
+"

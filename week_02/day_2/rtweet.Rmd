@@ -1,0 +1,165 @@
+---
+title: "Rtweet Hwk"
+output: html_notebook
+---
+
+#Q1 load libraries and load the data
+```{r}
+library(tidyverse)
+library(janitor)
+
+tweets <- read_csv("data/code_clan_tweets.csv") %>% clean_names()
+
+names(tweets)
+dim(tweets)
+```
+#Q2 get total number of likes for "original" (unquoted) tweets
+
+```{r}
+tweets %>% 
+  filter(is_quote == FALSE) %>% 
+  summarise(total_favorites = sum(favorite_count))
+
+#425 total favourites for original tweets
+```
+
+#Q3 get mean retweets, excl quoted tweets, grouped by source
+
+```{r}
+tweets %>% 
+  filter(is_quote == FALSE) %>% 
+  group_by(source) %>% 
+  summarise(mean_retweets = mean(retweet_count)) %>% 
+  ungroup()
+```
+
+#Q4 summarise total favourites, grouped by media type, ordered descending
+#assume missing media type = text
+
+```{r}
+tweets %>% 
+  mutate(media_type = if_else(
+    is.na(media_type),
+    "text",
+    media_type
+  )) %>% 
+  group_by(media_type) %>% 
+  summarise(total_favorites = sum(favorite_count)) %>% 
+  arrange(desc(total_favorites)) %>% 
+  ungroup()
+```
+#Q5 find mean length of CC tweet both using the existing column and by checking
+#the string length
+#str_length doesn't work because it gets stuck on unrecognised characters!
+#this returns NA values in char_count
+#try str_count instead - this works
+#we now have two different mean values, seemingly because the display_text_width
+#discounts any @twitter_handles
+
+```{r}
+tweets %>% 
+  filter(is_quote == FALSE) %>% 
+  mutate(char_count = str_count(text), .after = display_text_width) %>% 
+  summarise(across(display_text_width:char_count, ~ mean(.)))
+```
+
+#Q6 join code_clan_info to add a url column to tweets
+
+```{r}
+code_clan_info <- read_csv("data/code_clan_info.csv") %>% clean_names()
+
+#tweet_id looks like a good key to use - check it is unique in each dataset
+
+tweets %>%
+  distinct(tweet_id) %>% 
+  count() == count(tweets)
+
+code_clan_info %>% 
+  distinct(tweet_id) %>% 
+  count() == count(code_clan_info)
+
+#tweet_id seems to be unique, so let's proceed with the task
+#first get the columns we want from code_clan_info (tweet_id and status_url)
+
+
+code_clan_info %>% 
+  select(1:2) %>% 
+  right_join(tweets, by = c("tweet_id" = "tweet_id"))
+
+#edit - try this with a nested select.  Avoids a right join!
+#put this in a new tibble for Q7
+
+codeclan_hashtags <- tweets %>% 
+  left_join(
+    select(code_clan_info, 1:2),
+    by = c("tweet_id" = "tweet_id")
+  )
+
+```
+
+#Q7
+#get just the tweet_id and the hashtags columns
+#convert hashtags to lower case
+#keep only records with hashtags
+
+```{r}
+codeclan_hashtags <-codeclan_hashtags %>% 
+  select(tweet_id, hashtags) %>% 
+  filter(!is.na(hashtags)) %>% 
+  mutate(hashtags = str_to_lower(hashtags))
+
+#this has worked startingly well
+```
+
+#Q8 find tweets where hashtags starts with c(
+#not quite sure why the question mentions str_sub just yet...
+#had to use \\( to escape for the regex
+
+```{r}
+codeclan_hashtags %>% 
+  filter(str_detect(hashtags, "c\\("))
+```
+
+#Q9 find tweets mentioning "Edinburgh" and count them
+#sticking to the question rigidly here - exact matches for "Edinburgh" only
+#33 tweets matching
+
+```{r}
+tweets %>% 
+  filter(str_detect(text, "Edinburgh")) %>% 
+  count()
+```
+
+#read the hint... trying again with case insensitive match
+#same result
+
+```{r}
+tweets %>% 
+  filter(str_detect(text, "(?i)Edinburgh")) %>% 
+  count()
+```
+
+#Q10 get the twitter handles
+#going to assume "@" only appears at the start of handles, in tweets...
+#this works, but the resulting data is somewhat messy
+
+```{r}
+str_split(tweets$text, " ") %>%
+  flatten_chr() %>% 
+  tibble() %>% 
+  filter(str_detect(., "@"))
+```
+
+#OK... have googled and found that twitter restricts handles to 15 characters,
+#alphanumeric or underscores only
+#so, let's try a regex approach
+
+```{r}
+str_extract_all(tweets$text, "@[a-zA-Z_]{1,15}") %>% 
+  flatten_chr()
+```
+
+
+
+
+

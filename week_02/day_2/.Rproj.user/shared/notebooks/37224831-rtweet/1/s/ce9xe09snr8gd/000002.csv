@@ -1,0 +1,4 @@
+"0","codeclan_hashtags <-codeclan_hashtags %>% "
+"0","  select(tweet_id, hashtags) %>% "
+"0","  filter(!is.na(hashtags)) %>% "
+"0","  mutate(hashtags = str_to_lower(hashtags))"

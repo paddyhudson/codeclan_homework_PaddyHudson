@@ -1,0 +1,10 @@
+"0","tweets %>% 
+  left_join(
+    select(code_clan_info, 1:2),
+    by = c(""tweet_id"" = ""tweet_id"")
+  )
+"
+"0",""
+"0","-> new_tibble"
+"2","Error: unexpected '->' in ""->""
+"

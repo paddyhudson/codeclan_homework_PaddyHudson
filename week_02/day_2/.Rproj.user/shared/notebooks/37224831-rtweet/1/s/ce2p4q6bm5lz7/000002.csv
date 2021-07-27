@@ -1,0 +1,4 @@
+"0","tweets %>% "
+"0","  filter(is_quote == FALSE) %>% "
+"0","  mutate(char_count = str_count(text), .after = display_text_width) %>% "
+"0","  summarise(across(display_text_width:char_count, ~ mean(.)))"

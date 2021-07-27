@@ -55,11 +55,11 @@ hat_observations <- read_csv("data/hat_observations.csv") %>%
 
 ```
 
-#create a united data column
+#create a united date column
 #filter beret rows and get the max observations
 
 ```{r}
-hat_obs_dat <- hat_observations %>% 
+hat_obs_date <- hat_observations %>% 
   unite(
     col = date,
     day:year,

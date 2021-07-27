@@ -6,3 +6,5 @@
 "0","  ) %>%"
 "0","  filter(hat_type == ""beret"") %>% "
 "0","  slice_max(observation_count, n = 1)"
+"0",""
+"0","#18 June 2018 is when the most berets were observed!"
