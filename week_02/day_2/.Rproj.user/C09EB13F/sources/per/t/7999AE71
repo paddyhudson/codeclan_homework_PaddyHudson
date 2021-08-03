@@ -3,7 +3,7 @@
     "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_02/day_2/rtweet.Rmd",
     "project_path": "rtweet.Rmd",
     "type": "r_markdown",
-    "hash": "1114553181",
+    "hash": "1432267325",
     "contents": "",
     "dirty": false,
     "created": 1627404965625.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "157,53",
-        "scrollLine": "150"
+        "cursorPosition": "177,3",
+        "scrollLine": "172"
     },
     "folds": "",
-    "lastKnownWriteTime": 1627412733,
+    "lastKnownWriteTime": 1627464694,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1627412733827,
+    "last_content_update": 1627464694380,
     "read_only": false,
     "read_only_alternatives": []
 }

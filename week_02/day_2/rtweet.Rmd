@@ -117,7 +117,7 @@ codeclan_hashtags <-codeclan_hashtags %>%
 
 ```{r}
 codeclan_hashtags %>% 
-  filter(str_detect(hashtags, "c\\("))
+  filter(str_detect(hashtags, "^c\\("))
 ```
 
 #Q9 find tweets mentioning "Edinburgh" and count them
@@ -155,11 +155,24 @@ str_split(tweets$text, " ") %>%
 #so, let's try a regex approach
 
 ```{r}
-str_extract_all(tweets$text, "@[a-zA-Z_]{1,15}") %>% 
-  flatten_chr()
+# this works
+  str_extract_all(tweets$text, "@[a-zA-Z_]{1,15}") %>%
+  flatten_chr() %>%
+  tibble() %>% 
+  distinct()
+
+# for some reason piping it in doesn't work
+tweets %>% 
+  str_extract_all(tweets$text, "@[a-zA-Z_]{1,15}") %>%
+  tibble() %>% 
+  distinct()
 ```
 
 
-
-
-
+```{r}
+tweets %>%
+  mutate(mentions = str_extract_all(text, "@[A-Za-z0-9_]+")) %>%
+  select(tweet_id, mentions) %>%
+  unnest(mentions) %>%
+  distinct(mentions)
+```

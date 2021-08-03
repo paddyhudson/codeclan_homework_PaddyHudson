@@ -1,0 +1,5 @@
+"0","tweets %>%"
+"0","  mutate(mentions = str_extract_all(text, ""@[A-Za-z0-9_]+"")) %>%"
+"0","  select(tweet_id, mentions) %>%"
+"0","  unnest(mentions) %>%"
+"0","  distinct(mentions)"
