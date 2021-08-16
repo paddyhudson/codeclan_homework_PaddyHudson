@@ -161,7 +161,7 @@ ORDER BY count(*) DESC, first_name;
 
 SELECT
 	department,
-	count(CASE WHEN grade = 1 THEN 1 END)::real/count(*)::real AS prop_grade_1
+	COUNT(CASE WHEN grade = 1 THEN 1 END)::REAL/count(*)::REAL AS prop_grade_1
 FROM employees
 GROUP BY department;
 
@@ -209,6 +209,7 @@ GROUP BY pension_enrol;
 
 /* EXT Q3 */
 
+EXPLAIN ANALYSE
 SELECT
 	e.first_name,
 	e.last_name,
@@ -234,7 +235,7 @@ WITH salary_class_added AS (
 	)
 SELECT
 	s.salary_class,
-	count(*) AS employee_count
+	count(DISTINCT(s.id)) AS employee_count
 FROM salary_class_added s INNER JOIN employees_committees ec
 ON s.id = ec.employee_id
 GROUP BY s.salary_class;
