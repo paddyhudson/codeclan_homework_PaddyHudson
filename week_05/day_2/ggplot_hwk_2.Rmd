@@ -1,0 +1,193 @@
+---
+title: "ggplot Homework 2"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(CodeClanData)
+```
+
+```{r}
+theme <- 
+  theme(
+    text = element_text(size = 12),
+    title = element_text(size = 14),
+    axis.text = element_text(size = 10),
+    panel.background = element_rect(fill = "white"),
+    panel.grid = element_line(colour = "grey90", linetype = "dashed")
+  )
+
+colour_scheme <- c('#7fc97f','#beaed4','#fdc086','#ffff99','#386cb0','#f0027f','#bf5b17','#666666')
+```
+
+#MVP1
+#Data is all numeric/factor so should be read to analyse
+```{r}
+backpack <- backpack
+```
+
+#MVP2
+#Mostly around 10kg with an outlier at 25kg, main distribution is from 2-20
+```{r}
+backpack %>% 
+  ggplot() +
+  aes(x = backpack_weight) +
+  geom_histogram(binwidth = 2, col = "white") +
+  theme +
+  labs(
+    x = "Backpack Weight",
+    y = "Frequency",
+    title = "Frequency Distribution of Backpack Weights\n"
+  )
+```
+
+#MVP3
+#There are no obvious differences between weights for each sex
+```{r}
+backpack %>% 
+  ggplot() +
+  aes(x = backpack_weight, fill = sex) +
+  geom_histogram(binwidth = 2, col = "white", position = "dodge") +
+  theme +
+  labs(
+    x = "Backpack Weight",
+    y = "Frequency",
+    title = "Frequency Distribution of Backpack Weights\n",
+    subtitle = "Split by sex"
+  )
+
+backpack %>% 
+  ggplot() +
+  aes(y = backpack_weight, x = sex) +
+  geom_point() +
+  theme +
+  labs(
+    x = "Backpack Weight",
+    y = "Sex",
+    title = "Backpack Weights by Sex\n"
+  )
+```
+
+#MVP4
+#There is a slight positive correlation between backpack weight and body weight
+#But not an obvious one
+```{r}
+backpack %>% 
+  ggplot() +
+  aes(x = body_weight, y = backpack_weight) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme +
+  labs(
+    x = "Body Weight",
+    y = "Backpack Weight",
+    title = "Backpack Weight vs Body Weight\n"
+  )
+```
+
+#MVP5
+#There are no major differences between sex
+#Females show a less clear correlation
+```{r}
+backpack %>% 
+  ggplot() +
+  aes(x = body_weight, y = backpack_weight) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~ sex, scales = "free") +
+  theme +
+  labs(
+    x = "Body Weight",
+    y = "Backpack Weight",
+    title = "Backpack Weight vs Body Weight",
+    subtitle = "NB scales differ between plots\n"
+  )
+```
+
+#MVP6
+Roughly one third of students report back pain
+```{r}
+backpack %>% 
+  mutate(back_problems = ifelse(back_problems == 1, "Yes", "No")) %>% 
+  ggplot() +
+  aes(x = back_problems) +
+  geom_bar() +
+  geom_text(
+    stat = "count",
+    aes(label = stat(count), vjust = 2, col = "white"),
+    show.legend = FALSE
+    ) +
+  scale_color_identity() +
+  theme +
+  labs(
+    x = "Back Problems",
+    y = "Count",
+    title = "Back Problems Amongst Students"
+  )
+```
+
+#MVP7
+#Yes, nearly half of females report back pain vs about one sixth of males
+```{r}
+backpack %>% 
+  mutate(back_problems = ifelse(back_problems == 1, "Yes", "No")) %>% 
+  ggplot() +
+  aes(x = back_problems) +
+  geom_bar() +
+  geom_text(
+    stat = "count",
+    aes(label = stat(count), vjust = 2, col = "white"),
+    show.legend = FALSE
+    ) +
+  facet_wrap(~sex) +
+  scale_color_identity() +
+  theme +
+  labs(
+    x = "Back Problems",
+    y = "Count",
+    title = "Back Problems Amongst Students"
+  )
+```
+
+#MVP8
+
+```{r}
+backpack %>%
+  mutate(back_problems = ifelse(back_problems == 1, "Yes", "No")) %>%
+  ggplot() +
+  aes(x = body_weight, y = backpack_weight) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_grid(back_problems ~ sex, scales = "fr") +
+  theme +
+  labs(
+    x = "Body Weight",
+    y = "Backpack Weight",
+    title = "Backpack Weight vs Body Weight",
+    subtitle = "Split by Sex and Back Problems\n"
+  )
+
+backpack %>% 
+  mutate(back_problems = ifelse(back_problems == 1, "Yes", "No")) %>%
+  mutate(bw_quartile = as_factor(cut_number(
+      x = body_weight,
+      n = 4, 
+      labels = c("Quart1", "Quart2", "Quart3", "Quart4")
+      ))) %>% 
+  ggplot() +
+  aes(x = back_problems) +
+  geom_bar() +
+  facet_grid(bw_quartile ~ sex) +
+  scale_color_identity() +
+  theme +
+  labs(
+    x = "Back Problems",
+    y = "Count",
+    title = "Back Problems Amongst Students",
+    subtitle = "Split by Sex and Body Weight Quartile"
+  )
+```
+

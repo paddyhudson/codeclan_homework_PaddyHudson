@@ -1,12 +1,12 @@
 {
-    "id": "A6DAFD52",
-    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_05/day_01/ggplot_hwk.Rmd",
-    "project_path": "ggplot_hwk.Rmd",
+    "id": "AF43C1B3",
+    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_05/day_2/ggplot_hwk_2.Rmd",
+    "project_path": "ggplot_hwk_2.Rmd",
     "type": "r_markdown",
-    "hash": "3219964857",
+    "hash": "3223268097",
     "contents": "",
     "dirty": false,
-    "created": 1629139388852.0,
+    "created": 1629271608139.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
@@ -14,15 +14,15 @@
         "chunk_output_type": "console",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "105,27",
-        "scrollLine": "93"
+        "cursorPosition": "182,13",
+        "scrollLine": "179"
     },
     "folds": "",
-    "lastKnownWriteTime": 1629148069,
+    "lastKnownWriteTime": 1629274974,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1629148069822,
+    "last_content_update": 1629274974789,
     "read_only": false,
     "read_only_alternatives": []
 }
