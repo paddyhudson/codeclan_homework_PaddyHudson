@@ -1,0 +1,27 @@
+---
+title: "Top 5 Team Medal Comparisons"
+author: "Paddy Hudson"
+output: html_document
+params:
+  medal: NA
+  season: NA
+---
+
+```{r, echo = FALSE}
+olympics_overall_medals %>%
+            filter(team %in% c("United States",
+                               "Soviet Union",
+                               "Germany",
+                               "Italy",
+                               "Great Britain")) %>%
+            filter(medal %in% params$medal) %>%
+            filter(season == params$season) %>% 
+            ggplot() +
+            aes(x = team, y = count, fill = medal) +
+            geom_col(position = "dodge") +
+            ggtitle(str_c(params$season, " Olympics")) +
+            scale_fill_manual(values = c("Gold" = "gold",
+                                         "Silver" = "gray70",
+                                         "Bronze" = "darkorange"))
+```
+

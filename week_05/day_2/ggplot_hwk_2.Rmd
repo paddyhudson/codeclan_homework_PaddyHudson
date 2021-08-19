@@ -172,16 +172,18 @@ backpack %>%
 
 backpack %>% 
   mutate(back_problems = ifelse(back_problems == 1, "Yes", "No")) %>%
-  mutate(bw_quartile = as_factor(cut_number(
+  mutate(bw_quartile = cut_number(
       x = body_weight,
       n = 4, 
       labels = c("Quart1", "Quart2", "Quart3", "Quart4")
-      ))) %>% 
+      ))%>%
   ggplot() +
   aes(x = back_problems) +
   geom_bar() +
-  facet_grid(bw_quartile ~ sex) +
-  scale_color_identity() +
+  facet_grid(
+    factor(bw_quartile, levels=rev(levels(bw_quartile)))
+    ~ sex
+    ) +
   theme +
   labs(
     x = "Back Problems",
@@ -189,5 +191,13 @@ backpack %>%
     title = "Back Problems Amongst Students",
     subtitle = "Split by Sex and Body Weight Quartile"
   )
+```
+
+```{r}
+backpack %>% 
+  filter(year != 0) %>% 
+  ggplot()+
+  aes(x = year, y = backpack_weight)+
+  geom_point()
 ```
 

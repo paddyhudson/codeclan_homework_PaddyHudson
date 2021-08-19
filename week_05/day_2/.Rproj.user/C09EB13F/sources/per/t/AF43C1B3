@@ -3,7 +3,7 @@
     "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_05/day_2/ggplot_hwk_2.Rmd",
     "project_path": "ggplot_hwk_2.Rmd",
     "type": "r_markdown",
-    "hash": "3223268097",
+    "hash": "2572847950",
     "contents": "",
     "dirty": false,
     "created": 1629271608139.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "console",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "182,13",
-        "scrollLine": "179"
+        "cursorPosition": "203,0",
+        "scrollLine": "195"
     },
     "folds": "",
-    "lastKnownWriteTime": 1629274974,
+    "lastKnownWriteTime": 1629278756,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1629274974789,
+    "last_content_update": 1629278756340,
     "read_only": false,
     "read_only_alternatives": []
 }
