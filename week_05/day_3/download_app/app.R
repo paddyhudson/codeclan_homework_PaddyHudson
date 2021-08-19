@@ -48,6 +48,7 @@ ui <- fluidPage(
 
 server <- function(input, output){
     
+    #plot for the UI
     output$plot <- renderPlot({
         olympics_overall_medals %>%
             filter(team %in% c("United States",
@@ -65,20 +66,29 @@ server <- function(input, output){
                                          "Bronze" = "darkorange"))
     })
     
+    #download functionatility which will happen when download_report is clicked
+    #first call a downloadHander
     output$download_report <- downloadHandler(
-        
+    #set the filename as my-report.(PDF/html/docx) based on the choice of format
         filename = function() {
             paste('my-report', sep = '.', switch(
                 input$format, PDF = 'pdf', HTML = 'html', Word = 'docx'
             ))
         },
-        
+    #get the file content    
         content = function(file) {
+    #get the filepath of the markdown file
             src <- normalizePath('report.Rmd')
+    #this is a precaution to ensure you have write permission for the directory
             owd <- setwd(tempdir())
             on.exit(setwd(owd))
+    #create a copy of the markdown file
             file.copy(src, 'report.Rmd', overwrite = TRUE)
+    #create the search parameters to be passed to markdown file
             params <- list(medal = input$medal, season = input$season)
+    #render the markdown file in the desired format
+    #pass in the search parameters
+    #and create a new environment for the render, in case of duplicate terms
             out <- render('report.Rmd',
                           output_format = switch(
                             input$format,
@@ -89,6 +99,7 @@ server <- function(input, output){
                           params = params,
                           envir = new.env(parent = globalenv())
             )
+    #rename the file... don't quite understand this bit yet
             file.rename(out, file)
         }
     )
