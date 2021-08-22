@@ -1,0 +1,13 @@
+name: download_app
+title: download_app
+username:
+account: paddyhudson
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4511531
+bundleId: 4941300
+url: https://paddyhudson.shinyapps.io/download_app/
+when: 1629380441.5721
+lastSyncTime: 1629380441.5721
+asMultiple: FALSE
+asStatic: FALSE
