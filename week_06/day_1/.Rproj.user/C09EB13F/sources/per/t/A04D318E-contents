@@ -1,0 +1,79 @@
+---
+title: "Probability Day 1 Hwk"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+library(gtools)
+library(tidyverse)
+```
+
+# MVP1.1
+```{r}
+ptitanic <- read_csv("data/titanic.csv")
+
+ptitanic <- ptitanic %>%
+  mutate(survived = recode(ptitanic$survived, "yes" = TRUE, "no" = FALSE))
+
+p_crew_survive <- ptitanic %>%
+  filter(class %in% c("engineering crew",
+                      "victualling crew",
+                      "restaurant staff",
+                      "deck crew")) %>% 
+  summarise(prob = sum(survived)/n())
+
+p_pass_survive <-  ptitanic %>%
+  filter(class %in% c("1st",
+                      "2nd",
+                      "3rd")) %>% 
+  summarise(prob = sum(survived)/n())
+
+p_crew_survive > p_pass_survive
+```
+
+#MVP Q1
+
+```{r}
+1/6+1/6+1/6+1/6
+```
+#MVP Q2
+
+```{r}
+6^3
+```
+#MVP Q3
+#Assuming dice are all fair...
+```{r}
+four_dice <- rolldie(4) %>% 
+  mutate(test = ifelse(rowSums(.) < 8, 1, 0))
+
+sum(four_dice$test)
+
+summarise(four_dice, prob = sum(test)/n())
+```
+#MVP Q4
+
+```{r}
+1/factorial(5)
+```
+#MVP Q5
+
+```{r}
+six_dice_permutation <- permutations(6, 6, repeats.allowed = TRUE)
+
+1/nrow(six_dice_permutation)
+
+six_dice_combination <- combinations(6, 6, repeats.allowed = TRUE)
+
+1/nrow(six_dice_combination)
+```
+
+#MVP Q6
+
+```{r}
+cards(jokers = FALSE) %>% 
+  mutate(black = ifelse(suit %in% c("Club", "Spade"), TRUE, FALSE)) %>% 
+  summarise(prob = sum(black)/n())
+```
+
