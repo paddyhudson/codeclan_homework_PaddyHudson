@@ -1,0 +1,81 @@
+---
+title: "Distribution Homework"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+library(janitor)
+library(tidyverse)
+```
+
+#MVP 1
+
+```{r}
+phones <- read_csv("data/20190928-items.csv")
+view(phones)
+nrow(drop_na(phones))
+```
+
+#MVP 2
+
+```{r}
+phones %>% 
+  group_by(brand) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+#MVP 3
+#Normal distribution provides a reasonable model for the ratings
+```{r}
+mean_sd <- phones %>% 
+  filter(brand == "Samsung") %>%
+  summarise(sd = sd(rating, na.rm = TRUE),
+            mean = mean(rating, na.rm = TRUE))
+
+mean <- phones()
+
+phones %>%
+  filter(brand == "Samsung") %>% 
+  ggplot() +
+  aes(x = rating) +
+  geom_density() +
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = mean_sd$mean, 
+      sd = mean_sd$sd
+    ),
+    col = "red"
+  )
+```
+
+#MVP 4
+#The ratings conform to the expected 1sd spread of the \(3\sigma\) rule, but not
+#the 2d or 3sd.  So the ratings show more outliers than expected for a normal
+#distribution.
+```{r}
+samsung_ratings <- phones %>% 
+  filter(brand == "Samsung") %>% 
+  select(rating)
+  
+samsung_ratings %>% 
+  filter(between(rating,
+                 mean_sd$mean - mean_sd$sd,
+                 mean_sd$mean + mean_sd$sd)) %>% 
+  summarise(prop_1sd = n() / nrow(samsung_ratings))
+
+samsung_ratings %>% 
+  filter(between(rating,
+                 mean_sd$mean - 2*mean_sd$sd,
+                 mean_sd$mean + 2*mean_sd$sd)) %>% 
+  summarise(prop_2sd = n() / nrow(samsung_ratings))
+
+samsung_ratings %>% 
+  filter(between(rating,
+                 mean_sd$mean - 3*mean_sd$sd,
+                 mean_sd$mean + 3*mean_sd$sd)) %>% 
+  summarise(prop_3sd = n() / nrow(samsung_ratings))
+```
+

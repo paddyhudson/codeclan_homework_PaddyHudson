@@ -1,0 +1,6 @@
+"0","infer_ci_99 <- infer_resample %>%"
+"0","  get_confidence_interval(level = 0.99, type = ""percentile"")"
+"0",""
+"0","infer_resample %>% "
+"0","  visualise(bins = 50) +"
+"0","  shade_confidence_interval(endpoints = infer_ci_99)"

@@ -1,0 +1,98 @@
+---
+title: "Confidence Intervals"
+output: html_notebook
+---
+
+#MVP 1
+
+```{r}
+library(tidyverse)
+library(infer)
+library(janitor)
+```
+
+```{r}
+ames <- read_csv("data/ames.csv") %>% clean_names()
+```
+
+#MVP 2
+#lot_area has a very high sd in proportion to mean
+#Distribution is roughly normal but does not quite meet the 3sd spread
+```{r}
+ames_lot_area <- ames %>% 
+  select(lot_area)
+
+mean_sd <- ames_lot_area %>% 
+  summarise(mean = mean(lot_area), sd = sd(lot_area))
+
+ames_lot_area %>% 
+  filter(between(lot_area,
+                 mean_sd$mean - mean_sd$sd,
+                 mean_sd$mean + mean_sd$sd)) %>% 
+  summarise(prop_1sd = n()/nrow(ames_lot_area))
+
+ames_lot_area %>% 
+  filter(between(lot_area,
+                 mean_sd$mean - 2*mean_sd$sd,
+                 mean_sd$mean + 2*mean_sd$sd)) %>% 
+  summarise(prop_2sd = n()/nrow(ames_lot_area))
+
+ames_lot_area %>% 
+  filter(between(lot_area,
+                 mean_sd$mean - 3*mean_sd$sd,
+                 mean_sd$mean + 3*mean_sd$sd)) %>% 
+  summarise(prop_3sd = n()/nrow(ames_lot_area))
+```
+#MVP 3
+
+```{r}
+bootstrap_resample_lot_area <- lot_area %>%
+  rep_sample_n(size = 2930, replace = TRUE, reps = 5000) %>%
+  summarise(
+    mean_lot_area = mean(lot_area)
+  )
+
+bootstrap_resample_lot_area %>%
+  ggplot(aes(x = mean_lot_area)) +
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+```{r}
+infer_resample <- ames_lot_area %>%
+  specify(response = lot_area) %>%
+  generate(reps = 5000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+infer_resample %>% 
+  visualise(bins = 50)
+```
+
+#MVP 4
+
+```{r}
+infer_ci_95 <- infer_resample %>%
+  get_confidence_interval(type = "percentile")
+
+infer_resample %>% 
+  visualise(bins = 50) +
+  shade_confidence_interval(endpoints = infer_ci_95)
+```
+
+#MVP 5
+#ci_99 is broader than ci_95, as expected, because width increases with confidence level
+```{r}
+infer_ci_99 <- infer_resample %>%
+  get_confidence_interval(level = 0.99, type = "percentile")
+
+infer_resample %>% 
+  visualise(bins = 50) +
+  shade_confidence_interval(endpoints = infer_ci_99)
+```
+
+#MVP 6
+
+```{r}
+infer_resample %>%
+  summarise(point_est = mean(stat))
+```
+
