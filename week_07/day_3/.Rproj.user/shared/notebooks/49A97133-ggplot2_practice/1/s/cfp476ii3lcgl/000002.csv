@@ -1,0 +1,8 @@
+"0","loans %>% "
+"0","  ggplot() +"
+"0","  aes(x = loan_amnt, y = int_rate, colour = grade) +"
+"0","  geom_point(alpha = 0.1) +"
+"0","  labs(x = ""Loan Amount"","
+"0","       y = ""Interest Rate"","
+"0","       title = ""Interest Rate vs Loan Amount"") +"
+"0","  facet_wrap(~grade)"

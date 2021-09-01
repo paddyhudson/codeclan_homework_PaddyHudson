@@ -1,0 +1,7 @@
+"0","loans %>% "
+"0","  ggplot() +"
+"0","  aes(x = loan_amnt, y = int_rate) +"
+"0","  geom_point() +"
+"0","  labs(x = ""Loan Amount"","
+"0","       y = ""Interest Rate"","
+"0","       title = ""Interest Rate vs Loan Amount"")"
