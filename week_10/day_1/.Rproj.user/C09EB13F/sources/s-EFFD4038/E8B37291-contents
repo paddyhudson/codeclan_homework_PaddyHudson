@@ -1,0 +1,113 @@
+---
+title: "Regression"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(broom)
+library(ggfortify)
+```
+
+```{r}
+height <- c(176, 164, 181, 168, 195, 185, 166, 180, 188, 174)
+weight <- c(82, 65, 85, 76, 90, 92, 68, 83, 94, 74 )
+sample <- tibble(
+  weight,
+  height
+)
+```
+
+```{r}
+plot <- sample %>% 
+  ggplot() +
+  aes(x = height, y = weight) +
+  geom_point()
+```
+
+```{r}
+line <- function(x, b0, b1){
+return(b0 + x * b1)
+}
+```
+
+
+```{r}
+sample <- sample %>% 
+  mutate(fit_height = line(weight, b0 = 95, b1 = 1))
+```
+
+```{r}
+sample %>% 
+  ggplot() +
+  aes(x = weight, y = height) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 95, col = "red") +
+  geom_point(aes(x = weight, y = fit_height), shape = 1) +
+  geom_segment(aes(xend = weight, yend = fit_height), alpha = 0.5)
+```
+
+```{r}
+sample <- sample %>% 
+  mutate(residual = height - fit_height) %>% 
+  mutate(sq_residual = residual ^ 2)
+
+sample %>% 
+  summarise(sum_sq_res = sum(sq_residual))
+```
+
+```{r}
+model = lm(height ~ weight, data = sample)
+```
+
+```{r}
+tidy(model)
+```
+
+```{r}
+glance_output <- glance(my_model)
+glance_output$r.squared
+```
+```{r}
+sample %>% 
+  summarise(cor_squared = cor(height, weight)^2)
+```
+```{r}
+autoplot(model)
+```
+
+```{r}
+d1 <- read_csv("data/distribution_1.csv")
+d2 <- read_csv("data/distribution_2.csv")
+```
+
+```{r}
+m1 <- lm(y ~ x, data = d1)
+m2 <- lm(y ~ x, data = d2)
+```
+
+```{r}
+autoplot(m1)
+autoplot(m2)
+```
+
+```{r}
+d1 <- add_predictions(d1, m1)
+d2 <- add_predictions(d2, m2)
+```
+
+```{r}
+d1 %>% 
+  ggplot() +
+  geom_point(aes(x = x, y = y)) +
+  geom_line(aes(x = x, y = pred), col = "red")
+
+d2 %>% 
+  ggplot() +
+  geom_point(aes(x = x, y = y)) +
+  geom_line(aes(x = x, y = pred), col = "red")
+```
+

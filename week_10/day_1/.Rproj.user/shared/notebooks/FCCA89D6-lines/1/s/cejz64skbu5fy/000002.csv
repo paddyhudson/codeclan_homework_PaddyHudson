@@ -1,0 +1,16 @@
+"0","```r
+line <- function(x, a, b){
+  return(a*x+b)
+}
+
+data <- tibble(
+  x = seq(-5, 5, 0.1),
+  y = line(x, a = 2, b = -1)
+)
+
+data %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_line(col = \"red\") +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0)
+```"

@@ -1,0 +1,21 @@
+---
+title: "Borders Cancer Incidence"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(janitor)
+source("data.R")
+```
+
+```{r}
+jborders %>%
+  filter(cancer_site == "All cancer types",
+         sex != "All") %>% 
+  ggplot() +
+  geom_point(aes(y = crude_rate.x, x = year, colour = gender)) +
+  geom_point(aes(y =crude_rate.y, x = year))
+  
+  
+```
+

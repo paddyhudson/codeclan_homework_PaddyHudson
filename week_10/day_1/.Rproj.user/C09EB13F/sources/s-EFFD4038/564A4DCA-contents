@@ -1,0 +1,81 @@
+---
+title: "Lines"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+line <- function(x, a, b){
+  return(a*x+b)
+}
+
+data <- tibble(
+  x = seq(-5, 5, 0.1),
+  y = line(x, a = 2, b = -1)
+)
+
+data %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_line(col = "red") +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0)
+```
+
+```{r}
+data %>% 
+  mutate(y = line(x, a = 0, b = 1)) %>% 
+  ggplot(aes(x = y, y = x)) +
+  geom_line(col = "red") +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0)
+```
+
+```{r}
+noisy_line <- read_csv("data/noisy_line.csv")
+```
+
+
+```{r}
+noisy_line_plot <- noisy_line %>% 
+  ggplot() +
+  aes(x = x, y = y) +
+  geom_point()
+```
+
+```{r}
+centroid <- noisy_line %>% 
+  summarise(
+    x = mean(x),
+    y = mean(y)
+  )
+```
+
+```{r}
+noisy_line_plot <- noisy_line_plot +
+  geom_point(aes(x = centroid$x, y = centroid$y), col = "red", size = 5)
+
+noisy_line_plot
+```
+
+```{r}
+get_intercept <- function(slope, centroid_x, centroid_y){
+  return(centroid_y - slope * centroid_x)
+}
+```
+
+```{r}
+slope = 2.2
+
+noisy_line_plot +
+  geom_abline(slope = slope,
+              intercept = get_intercept(slope, centroid$x, centroid$y))
+```
+```{r}
+noisy_line_plot +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+

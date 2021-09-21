@@ -98,7 +98,9 @@ loans %>%
   facet_wrap(~purpose, scales = "free_y") +
   theme(axis.text.x = element_blank(),
         panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(colour = "black", fill = NA)) +
+        panel.border = element_rect(colour = "black", fill = NA),
+        strip.background = element_rect(fill = NA)
+  ) +
   scale_alpha_continuous(guide = "none") +
   scale_y_continuous(labels = scales::comma) +
   labs(

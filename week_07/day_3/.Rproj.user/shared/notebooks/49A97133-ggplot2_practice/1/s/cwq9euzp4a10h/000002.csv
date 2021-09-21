@@ -1,0 +1,25 @@
+"0","loans <- read_csv(""data/loans.csv"")"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------------[39m
+cols(
+  id = [32mcol_double()[39m,
+  member_id = [32mcol_double()[39m,
+  loan_amnt = [32mcol_double()[39m,
+  funded_amnt = [32mcol_double()[39m,
+  term = [31mcol_character()[39m,
+  int_rate = [32mcol_double()[39m,
+  installment = [32mcol_double()[39m,
+  sub_grade = [31mcol_character()[39m,
+  home_ownership = [31mcol_character()[39m,
+  annual_inc = [32mcol_double()[39m,
+  verification_status = [31mcol_character()[39m,
+  issue_d = [31mcol_character()[39m,
+  loan_status = [31mcol_character()[39m,
+  purpose = [31mcol_character()[39m,
+  title = [31mcol_character()[39m,
+  addr_state = [31mcol_character()[39m,
+  grade = [31mcol_character()[39m,
+  total_paid = [32mcol_double()[39m
+)
+
+"

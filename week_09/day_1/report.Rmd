@@ -1,0 +1,91 @@
+---
+title: "Borders Cancer Report"
+author: Paddy Hudson
+output: pdf_document
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(stats)
+library(tidyverse)
+library(janitor)
+source("data.R")
+```
+# Background
+This report has been prepared with the aim of helping the reader understand better the incidences of cancer in the Borders NHS Health Board, in order to inform planning for the provision of cancer services.\
+\
+The data used has been taken from https://www.opendata.nhs.scot which includes information on cancer incidence across Scotland, broken down by NHS Health Board, and covering the period 1995 - 2019.  Key variables include yearly incidence of cancer and crude rate of cancer (incidence per 100,000 population), by year, sex and cancer site.  Further variables are available but in order to suit the desired report length, these have been ignored for the purposes of this analysis.\
+\
+This is a publicly available dataset with no private or sensitive information.
+
+# First View
+```{r, echo = FALSE, fig.align='center', fig.dim = c(5,3)}
+jborders %>%
+  filter(cancer_site == "All cancer types",
+         sex == "All") %>% 
+  ggplot() +
+  geom_point(aes(y = crude_rate.x, x = year, colour = area.x)) +
+  geom_point(aes(y =crude_rate.y, x = year, colour = area.y)) +
+  labs(title = "Crude Rate of Cancer 1995-2019",
+       x = "Year",
+       y = "Crude Rate as incidences per 100,000",
+       colour = "Area")
+```
+
+**Description**: This is a scatter plot showing the crude cancer rate for all cancers/age groups/sexes of both NHS Borders and Scotland, for the period 1995-2019.
+
+**Observations**:  Both sets of data show a marked upwards trend over the period.  NHS Borders has a consistently higher crude rate than Scotland.  The Scotland data shows less variation than the NHS Borders data, due to the larger sample size.  For this reason, going forward we will use best fit line plots to assess trends over time, but it is important to consider the variability of data around those trends.
+
+# Gender
+```{r, echo = FALSE, fig.align='center', fig.dim = c(5,3), warning = FALSE, message = FALSE}
+jborders %>%
+  filter(cancer_site == "All cancer types",
+         sex != "All") %>% 
+  ggplot() +
+  geom_smooth(aes(y = crude_rate.x, x = year, colour = sex), se = FALSE) +
+  geom_point(aes(y = crude_rate.x, x = year, colour = sex)) +
+  labs(title = "Crude Rate of Cancer 1995-2019",
+       x = "Year",
+       y = "Crude Rate as incidences per 100,000",
+       colour = "Sex")
+```
+
+**Description**: This is a best fit regression plot showing the crude cancer rate in NHS Borders for all cancers/age groups, split by sex, for the period 1995-2019.
+
+**Observations**:  Rates of cancer are consistently higher among males  Both males and females show an increase over the period.  Female rates appear to have plateaud somewhat in the past decade, while male rates continue to trend upwards.
+
+# Cancer Sites
+```{r, echo = FALSE, fig.align='center', fig.dim = c(5,3), warning = FALSE, message = FALSE}
+sites <- jborders %>%
+  filter(cancer_site != "All cancer types",
+         year == 1995,
+         sex == "All") %>% 
+  arrange(desc(incidences_all_ages.x)) %>%
+  select(cancer_site, crude_rate.x) %>% 
+  rename(crude_rate = crude_rate.x)
+
+sites %>% head(10) %>% 
+  knitr::kable(caption = "Ten Most Prevalent Cancer Sites 2019")
+```
+
+```{r, echo = FALSE, fig.align='center', fig.dim = c(5,3), warning = FALSE, message = FALSE}
+sites <- jborders %>%
+  filter(cancer_site != "All cancer types",
+         year == 2019,
+         sex == "All") %>% 
+  arrange(desc(incidences_all_ages.x)) %>%
+  select(cancer_site, crude_rate.x) %>% 
+  rename(crude_rate = crude_rate.x)
+
+sites %>% head(10) %>% 
+  knitr::kable(caption = "Ten Most Prevalent Cancer Sites 2019")
+```
+
+**Description**: Table showing Ten most Prevalent Cancer Sites at the Start and End of the Period
+
+**Observations**:  The most prevalent cancer sites have not changed hugely over time.  There are some clear outliers which may guide preventative efforts going forward.
+
+# Further Areas for Analysis
+
+1. Age-related trends. 
+2. In-depth analysis of cancer sites vs age group and sex.
+3. Comparison with other NHS Health Boards.

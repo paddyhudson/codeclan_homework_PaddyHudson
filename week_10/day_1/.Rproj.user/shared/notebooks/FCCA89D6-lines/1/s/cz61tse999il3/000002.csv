@@ -1,0 +1,8 @@
+"0","```r
+data %>% 
+  mutate(y = line(x, a = 0, b = 1)) %>% 
+  ggplot(aes(x = y, y = x)) +
+  geom_line(col = \"red\") +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0)
+```"
