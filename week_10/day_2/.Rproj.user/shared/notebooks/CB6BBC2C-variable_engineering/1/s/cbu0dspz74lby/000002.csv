@@ -1,0 +1,4 @@
+"0","```r
+grades %>% 
+  dummy_cols(select_columns = \"subject\", remove_selected_columns = TRUE)
+```"

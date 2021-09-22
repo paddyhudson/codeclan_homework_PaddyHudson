@@ -1,0 +1,72 @@
+---
+title: "Diamonds"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(GGally)
+library(fastDummies)
+library(ggfortify)
+```
+
+```{r}
+diamonds <- read_csv("data/diamonds.csv")
+```
+
+```{r}
+diamonds %>% 
+  ggpairs(columns = c(2, 9, 10, 11))
+```
+
+```{r}
+diamonds_trim <- diamonds %>% 
+  select(-c(x, y, z))
+```
+
+```{r}
+diamonds_trim %>% 
+  ggpairs()
+```
+
+```{r}
+diamonds_trim %>% 
+  ggplot() +
+  aes(x = carat, y = price) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+```{r}
+diamonds_trim %>% 
+  summarise(
+    cut = length(unique(cut)),
+    color = length(unique(color)),
+    clarity = length(unique(clarity))
+  ) %>% 
+  pivot_longer(cols = everything())
+```
+
+
+
+
+
+```{r}
+model1 <- lm(price ~ carat, diamonds_trim)
+
+summary(model1)
+
+autoplot(model1)
+```
+```{r}
+diamonds_cut <- diamonds_trim %>% 
+  dummy_cols(select_columns = "cut", remove_first_dummy = TRUE, remove_selected_columns = TRUE)
+```
+```{r}
+model2 <- lm(price ~ carat + cut, diamonds_trim)
+
+summary(model2)
+
+autoplot(model2)
+```
+

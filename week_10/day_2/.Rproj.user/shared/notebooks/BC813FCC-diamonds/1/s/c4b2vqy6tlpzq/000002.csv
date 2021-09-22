@@ -1,0 +1,7 @@
+"0","diamonds_trim %>% "
+"0","  ggplot() +"
+"0","  aes(x = carat, y = price) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method = ""lm"", se = FALSE)"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

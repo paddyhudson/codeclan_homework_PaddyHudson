@@ -1,0 +1,21 @@
+"0","```r
+summary(grades)
+
+```"
+"1","   subject            assignment        tutorial         midterm         take_home     
+ Length:99          Min.   : 28.14   Min.   : 34.09   Min.   : 28.12   Min.   : 16.91  
+ Class :character   1st Qu.: 80.88   1st Qu.: 83.35   1st Qu.: 52.81   1st Qu.: 66.02  
+ Mode  :character   Median : 89.94   Median : 93.10   Median : 69.38   Median : 87.96  
+                    Mean   : 85.49   Mean   : 89.73   Mean   : 68.05   Mean   : 80.83  
+                    3rd Qu.: 95.00   3rd Qu.:100.55   3rd Qu.: 82.81   3rd Qu.: 98.75  
+                    Max.   :100.83   Max.   :112.58   Max.   :110.00   Max.   :108.89  
+                                                                       NA's   :1       
+     final       
+ Min.   : 28.06  
+ 1st Qu.: 53.12  
+ Median : 66.25  
+ Mean   : 68.41  
+ 3rd Qu.: 84.17  
+ Max.   :108.89  
+ NA's   :3       
+"

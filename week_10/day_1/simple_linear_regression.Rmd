@@ -73,11 +73,11 @@ pm %>%
               slope = my_model[["coefficients"]][["estimated_length"]],
               col = "red"
   ) +
-  geom_abline(intercept = my_model[["coefficients"]][["(Intercept)"]],
+  geom_abline(intercept = my2_model[["coefficients"]][["(Intercept)"]],
               slope = my2_model[["coefficients"]][["estimated_length"]],
               col = "green"
   ) +
-  geom_abline(intercept = my_model[["coefficients"]][["(Intercept)"]],
+  geom_abline(intercept = my3_model[["coefficients"]][["(Intercept)"]],
               slope = my3_model[["coefficients"]][["estimated_length"]],
               col = "blue"
   )

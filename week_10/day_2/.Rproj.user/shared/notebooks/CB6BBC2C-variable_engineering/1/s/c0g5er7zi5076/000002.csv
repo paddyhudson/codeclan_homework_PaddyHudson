@@ -1,0 +1,8 @@
+"0","```r
+grades %>% 
+  dummy_cols(select_columns = \"subject\", remove_selected_columns = TRUE)
+```"
+"1","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

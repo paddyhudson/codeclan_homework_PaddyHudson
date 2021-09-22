@@ -1,0 +1,11 @@
+"0","```r
+grades %>% 
+  mutate(grades_final_dummy = cut(
+    final,
+    breaks = c(0, 50, 60, 70, 100),
+    labels = c(\"F\", \"C\", \"B\", \"A\"),
+    right = FALSE
+    )
+  ) %>% 
+  dummy_cols(\"grades_final_dummy\", remove_selected_columns = TRUE)
+```"

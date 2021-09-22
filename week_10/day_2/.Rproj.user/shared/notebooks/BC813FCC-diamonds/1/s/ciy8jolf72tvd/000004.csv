@@ -1,0 +1,2 @@
+"0","diamonds_cut <- diamonds_trim %>% "
+"0","  dummy_cols(select_columns = ""cut"", remove_first_dummy = TRUE, remove_selected_columns = TRUE)"

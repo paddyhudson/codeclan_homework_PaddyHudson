@@ -1,0 +1,128 @@
+---
+title: "Multiple Regression"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(mosaicData)
+library(GGally)
+library(ggfortify)
+library(mosaic)
+```
+
+```{r}
+head(RailTrail)
+
+```
+
+```{r}
+railtrail_clean <- RailTrail %>% 
+  clean_names() %>% 
+  mutate(across(spring:fall, as.logical))
+```
+
+```{r}
+railtrail_trim <- railtrail_clean %>% 
+  select(-c("hightemp", "lowtemp", "fall", "day_type"))
+```
+
+```{r}
+railtrail_trim %>% 
+  ggpairs()
+```
+```{r}
+railtrail_trim %>% 
+  ggplot() +
+  aes(x = avgtemp, y = volume) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+my_model <- lm(volume ~ avgtemp, railtrail_trim)
+
+autoplot(my_model)
+
+summary(my_model)
+```
+```{r}
+railtrail_trim %>% 
+  ggplot() +
+  aes(y = volume) +
+  geom_boxplot()
+```
+
+```{r}
+railtrail_trim %>% 
+  ggplot() +
+  aes(x = volume) +
+  geom_histogram() +
+  facet_wrap(~weekday)
+```
+```{r}
+my_model2 <- lm(volume ~ avgtemp + weekday, railtrail_trim)
+
+autoplot(my_model2)
+
+summary(my_model2)
+
+plotModel(my_model2)
+```
+```{r}
+my_model3 <- lm(volume ~ avgtemp + weekday + summer, railtrail_trim)
+
+autoplot(my_model3)
+
+summary(my_model3)
+
+plotModel(my_model3)
+```
+
+```{r}
+railtrail_trim %>% 
+  ggplot() +
+  aes(x = avgtemp, y = volume, colour = weekday) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+my_model4 <- lm(volume ~ avgtemp + weekday + avgtemp:weekday, data = railtrail_trim)
+```
+
+```{r}
+summary(my_model4)
+```
+
+```{r}
+railtrail_trim %>%
+  ggplot() +
+  aes(x = cloudcover, y = volume) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+my_model5 <- lm(volume ~ avgtemp + weekday + cloudcover, railtrail_trim)
+
+summary(my_model5)
+```
+
+```{r}
+my_model6 <- lm(volume ~ avgtemp + weekday + cloudcover + precip, railtrail_trim)
+
+summary(my_model6)
+
+autoplot(my_model6)
+```
+
+```{r}
+my_model7 <- lm(volume ~ avgtemp + cloudcover + weekday + precip + avgtemp:precip, railtrail_trim)
+
+summary(my_model7)
+
+autoplot(my_model7)
+```
+

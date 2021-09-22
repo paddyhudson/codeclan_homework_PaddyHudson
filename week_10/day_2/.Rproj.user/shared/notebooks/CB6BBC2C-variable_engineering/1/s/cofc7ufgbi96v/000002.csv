@@ -1,0 +1,30 @@
+"0","```r
+grades %>% 
+  mutate(across(where(is_numeric),
+                ifelse(is.na(.), 0, 1)
+  ))
+```"
+"1","Warning: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+i Deprecated
+Warning: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+i Deprecated
+Warning: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+i Deprecated
+Warning: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+i Deprecated
+Warning: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+i Deprecated
+Warning: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+i Deprecated
+Error: Problem with `mutate()` input `..1`.
+i `..1 = across(where(is_numeric), ifelse(is.na(.), 0, 1))`.
+x Problem with `across()` input `.fns`.
+i `.fns` must be NULL, a function, a formula, or a list of functions/formulas.
+Run `rlang::last_error()` to see where the error occurred.
+"

@@ -1,0 +1,53 @@
+---
+title: "Variable Engineering"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(fastDummies)
+
+grades <- read_csv("data/grades.csv")
+```
+
+```{r}
+summary(grades)
+```
+
+```{r}
+grades %>% 
+  mutate(across(where(is_numeric),
+                ifelse(is.na(.), "column mean", "obs value")
+  ))
+```
+
+```{r}
+grades %>% 
+  dummy_cols(select_columns = "subject", remove_selected_columns = TRUE)
+```
+
+```{r}
+grades %>% 
+  dummy_cols(select_columns = "subject", remove_selected_columns = TRUE)
+```
+
+```{r}
+grades %>% 
+  mutate(grades_final_dummy = cut(
+    final,
+    breaks = c(0, 50, 60, 70, 100),
+    labels = c("F", "C", "B", "A"),
+    right = FALSE
+    )
+  ) %>% 
+  dummy_cols("grades_final_dummy", remove_selected_columns = TRUE)
+```
+
+```{r}
+assignment_mean <- mean(grades$assignment)
+assignment_sd <- sd(grades$assignment)
+
+grades %>% 
+  mutate(assignment = (assignment - assignment_mean)/assignment_sd)
+```
+

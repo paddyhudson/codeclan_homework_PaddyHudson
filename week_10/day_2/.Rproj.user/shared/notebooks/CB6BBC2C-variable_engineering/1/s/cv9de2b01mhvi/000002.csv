@@ -1,0 +1,7 @@
+"0","```r
+assignment_mean <- mean(grades$assignment)
+assignment_sd <- sd(grades$assignment)
+
+grades %>% 
+  mutate(assignment = (assignment - assignment_mean)/assignment_sd)
+```"

@@ -1,0 +1,7 @@
+"0","diamonds_trim %>% "
+"0","  summarise("
+"0","    cut = length(unique(cut)),"
+"0","    color = length(unique(color)),"
+"0","    clarity = length(unique(clarity))"
+"0","  ) %>% "
+"0","  pivot_longer(cols = everything())"

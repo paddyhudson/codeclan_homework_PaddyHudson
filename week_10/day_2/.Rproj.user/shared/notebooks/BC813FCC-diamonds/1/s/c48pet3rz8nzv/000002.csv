@@ -1,0 +1,2 @@
+"0","diamonds_trim <- diamonds %>% "
+"0","  select(-c(x, y, z))"
