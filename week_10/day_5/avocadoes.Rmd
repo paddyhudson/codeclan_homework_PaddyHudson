@@ -1,0 +1,57 @@
+---
+title: "Avocadoes"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(modelr)
+library(lubridate)
+library(GGally)
+library(factoextra)
+library(ggfortify)
+```
+
+```{r}
+avocadoes <- read_csv("data/avocado.csv") %>% clean_names()
+```
+
+```{r}
+avocadoes_num <- avocadoes %>% 
+  mutate(organic = if_else(type == "organic", 1, 0),
+         spring = if_else( month(date) %in% 3:5, 1, 0),
+         summer = if_else( month(date) %in% 6:8, 1, 0),
+         autumn = if_else( month(date) %in% 9:11, 1, 0)
+  ) %>% 
+  select(-type, -year, -date, -x1, -region)
+```
+
+```{r}
+avocadoes %>% 
+  select(-region) %>% 
+  ggpairs()
+```
+
+```{r}
+avo_pca <- prcomp(avocadoes_num, center = TRUE, scale. = TRUE)
+```
+
+```{r}
+fviz_eig(avo_pca)
+```
+
+```{r}
+summary(avo_pca)
+```
+
+```{r}
+avo_pca_trim <- as_tibble(avo_pca$x[,1:9])
+
+model <- lm(avocadoes_num$average_price ~ avo_pca_trim$PC1 + avo_pca_trim$PC2 + avo_pca_trim$PC3 + avo_pca_trim$PC4 + avo_pca_trim$PC5 + avo_pca_trim$PC6 + avo_pca_trim$PC7 + avo_pca_trim$PC8 + avo_pca_trim$PC9)
+```
+
+```{r}
+autoplot(model)
+```
+

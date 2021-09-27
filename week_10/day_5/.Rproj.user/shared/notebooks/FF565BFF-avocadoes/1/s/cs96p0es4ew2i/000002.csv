@@ -1,0 +1,24 @@
+"0","avocadoes <- read_csv(""data/avocado.csv"") %>% clean_names()"
+"2","Warning:"
+"2"," Missing column names filled in: 'X1' [1]
+"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m------------------------------------------------------------------------[39m
+cols(
+  X1 = [32mcol_double()[39m,
+  Date = [34mcol_date(format = """")[39m,
+  AveragePrice = [32mcol_double()[39m,
+  `Total Volume` = [32mcol_double()[39m,
+  `4046` = [32mcol_double()[39m,
+  `4225` = [32mcol_double()[39m,
+  `4770` = [32mcol_double()[39m,
+  `Total Bags` = [32mcol_double()[39m,
+  `Small Bags` = [32mcol_double()[39m,
+  `Large Bags` = [32mcol_double()[39m,
+  `XLarge Bags` = [32mcol_double()[39m,
+  type = [31mcol_character()[39m,
+  year = [32mcol_double()[39m,
+  region = [31mcol_character()[39m
+)
+
+"

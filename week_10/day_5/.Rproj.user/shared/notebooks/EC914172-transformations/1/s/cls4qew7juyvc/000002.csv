@@ -1,0 +1,9 @@
+"0","```r
+income_life_mod %>% 
+  ggplot() + 
+  geom_point(aes(x = log(income_2018), y = lin_log_resid), colour = \"red\") +
+  geom_smooth(aes(x = log(income_2018), y = lin_log_resid), method = \"loess\", se = FALSE)
+
+```"
+"1","`geom_smooth()` using formula 'y ~ x'
+"

@@ -1,0 +1,70 @@
+---
+title: "Transformations"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(modelr)
+library(broom)
+```
+
+```{r}
+income <- read_csv("data/income_per_person_gdppercapita_ppp_inflation_adjusted.csv") %>%
+              clean_names()
+
+life <- read_csv("data/life_expectancy_years.csv") %>%
+          clean_names()
+
+head(income)
+```
+
+```{r}
+income_life <- income %>% 
+  select(country, x2018) %>% 
+  rename(income_2018 = x2018) %>% 
+  full_join(select(life, country, x2018), by = "country") %>% 
+  rename(life_2018 = x2018) %>% 
+  na.omit()
+
+income_life %>% 
+  ggplot() +
+  aes(x = income_2018, y = life_2018) +
+  geom_point()
+
+
+```
+```{r}
+income_life %>% 
+  mutate(income_2018 = log(income_2018)) %>% 
+  ggplot() +
+  aes(y = income_2018) +
+  geom_boxplot()
+```
+
+```{r}
+lin_log <- lm(life_2018 ~ log(income_2018), data = income_life)
+
+log_log <- lm(log(life_2018) ~ log(income_2018), data = income_life)
+
+income_life_mod <- income_life %>% 
+  add_predictions(lin_log, var = "lin_log_pred") %>% 
+  add_predictions(log_log, var = "log_log_pred") %>% 
+  add_residuals(lin_log, var = "lin_log_resid") %>% 
+  add_residuals(log_log, var = "log_log_resid")
+```
+
+```{r}
+income_life_mod %>% 
+  ggplot() +
+  geom_point(aes(x = income_2018, y = life_2018)) +
+  geom_line(aes(x = income_2018, y = lin_log_pred), colour = "red") +
+  geom_line(aes(x = income_2018, y = log_log_pred), colour = "blue")
+
+income_life_mod %>% 
+  ggplot() + 
+  geom_point(aes(x = log(income_2018), y = lin_log_resid), colour = "red") +
+  geom_smooth(aes(x = log(income_2018), y = lin_log_resid), method = "loess", se = FALSE)
+```
+

@@ -1,27 +1,27 @@
 {
-    "id": "FCE98BBA",
-    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_work/week_10/day_2/variable_engineering.Rmd",
+    "id": "D9FC4AF4",
+    "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_work/week_10/day_2/multiple_regression.Rmd",
     "project_path": null,
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2857813255",
     "contents": "",
     "dirty": false,
-    "created": 1632296918741.0,
+    "created": 1632296913728.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 2,
     "properties": {
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "1,19",
-        "scrollLine": "0"
+        "cursorPosition": "32,7",
+        "scrollLine": "20"
     },
     "folds": "",
-    "lastKnownWriteTime": 1632221179,
+    "lastKnownWriteTime": 1632296690,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1632221179,
+    "last_content_update": 1632296916635,
     "read_only": false,
     "read_only_alternatives": []
 }

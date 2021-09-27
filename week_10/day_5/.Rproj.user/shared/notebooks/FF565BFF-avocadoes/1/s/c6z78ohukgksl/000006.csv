@@ -1,0 +1,7 @@
+"0","avocadoes_num <- avocadoes %>% "
+"0","  mutate(organic = if_else(type == ""organic"", 1, 0),"
+"0","         spring = if_else( month(date) %in% 3:5, 1, 0),"
+"0","         summer = if_else( month(date) %in% 6:8, 1, 0),"
+"0","         autumn = if_else( month(date) %in% 9:11, 1, 0)"
+"0","  ) %>% "
+"0","  select(-type, -year, -date, -x1, -region)"

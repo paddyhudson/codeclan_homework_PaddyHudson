@@ -1,0 +1,1 @@
+"0","avo_pca <- prcomp(avocadoes_num, center = TRUE, scale. = TRUE)"

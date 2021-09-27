@@ -1,0 +1,11 @@
+"0","```r
+lin_log <- lm(life_2018 ~ log(income_2018), data = income_life)
+
+log_log <- lm(log(life_2018) ~ log(income_2018), data = income_life)
+
+income_life_mod <- income_life %>% 
+  add_predictions(lin_log, var = \"lin_log_pred\") %>% 
+  add_predictions(log_log, var = \"log_log_pred\") %>% 
+  add_residuals(lin_log, var = \"lin_log_resid\") %>% 
+  add_residuals(log_log, var = \"log_log_resid\")
+```"

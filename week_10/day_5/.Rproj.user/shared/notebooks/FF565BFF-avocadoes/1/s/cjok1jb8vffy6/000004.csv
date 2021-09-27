@@ -1,0 +1,3 @@
+"0","avo_pca_trim <- as_tibble(avo_pca$x[,1:9])"
+"0",""
+"0","model <- lm(avocadoes_num$average_price ~ avo_pca_trim$PC1 + avo_pca_trim$PC2 + avo_pca_trim$PC3 + avo_pca_trim$PC4 + avo_pca_trim$PC5 + avo_pca_trim$PC6 + avo_pca_trim$PC7 + avo_pca_trim$PC8 + avo_pca_trim$PC9)"

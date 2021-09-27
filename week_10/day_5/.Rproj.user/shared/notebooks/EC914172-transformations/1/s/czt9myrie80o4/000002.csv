@@ -1,0 +1,9 @@
+"0","```r
+income <- read_csv(\"data/income_per_person_gdppercapita_ppp_inflation_adjusted.csv\") %>%
+              clean_names()
+
+life <- read_csv(\"data/life_expectancy_years.csv\") %>%
+          clean_names()
+
+head(income)
+```"

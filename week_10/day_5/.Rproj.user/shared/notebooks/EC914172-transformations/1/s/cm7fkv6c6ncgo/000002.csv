@@ -1,0 +1,7 @@
+"0","```r
+income_life %>% 
+  mutate(income_2018 = log(income_2018)) %>% 
+  ggplot() +
+  aes(y = income_2018) +
+  geom_boxplot()
+```"
