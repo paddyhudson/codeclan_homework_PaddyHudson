@@ -1,0 +1,8 @@
+"0","```r
+n_data <- nrow(clean_thrones)
+
+test_index <- sample(1:n_data, size = n_data * 0.2)
+
+thrones_test <- slice(clean_thrones, test_index)
+thrones_train <- slice(clean_thrones, -test_index)
+```"

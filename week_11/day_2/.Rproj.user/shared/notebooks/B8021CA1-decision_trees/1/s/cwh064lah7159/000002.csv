@@ -1,0 +1,11 @@
+"0","```r
+rpart.plot(
+  thrones_fit,
+  yesno = TRUE,
+  fallen.leaves = TRUE,
+  faclen = 6,
+  digits = 4,
+  type = 4,
+  extra = 101
+)
+```"

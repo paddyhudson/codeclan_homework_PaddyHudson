@@ -1,0 +1,8 @@
+"0","```r
+thrones_train %>% 
+  janitor::tabyl(dth_flag)
+```"
+"1"," dth_flag   n   percent
+ Survived 115 0.4166667
+     Died 161 0.5833333
+"

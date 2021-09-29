@@ -1,0 +1,15 @@
+"0","```r
+thrones_fit <- rpart(
+  formula = dth_flag ~ .,
+  data = thrones_train,
+  method = \"class\"
+)
+
+rpart.plot(
+  thrones_fit,
+  yesno = 2,
+  fallen.leaves = TRUE,
+  faclen = 6,
+  digit = 4
+)
+```"

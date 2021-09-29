@@ -1,0 +1,8 @@
+"0","titanic_split <- stratified(indt = titanic_clean,"
+"0","           group = ""survived_flag"","
+"0","           size = 0.8,"
+"0","           bothSets = TRUE"
+"0","           )"
+"0",""
+"0","titanic_training <- titanic_split$SAMP1"
+"0","titanic_test <- titanic_split$SAMP2"
