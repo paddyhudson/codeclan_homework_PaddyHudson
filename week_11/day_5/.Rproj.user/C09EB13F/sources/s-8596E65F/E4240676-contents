@@ -1,0 +1,57 @@
+---
+title: "Text Mining Homework"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(tidytext)
+library(janeaustenr)
+```
+
+```{r}
+titles <- c("Pride and Prejudice", "Sense and Sensibility")
+
+books <- list(prideprejudice, sensesensibility)
+
+books <- map(books, paste, collapse = " ")
+
+books_df <- tibble(
+  title = titles,
+  text = books
+  ) %>% 
+  unnest_tokens(word, text)
+```
+
+```{r}
+books_df %>% 
+  count(word) %>% 
+  slice_max(n, n = 10)
+```
+
+```{r}
+books_df %>% 
+  filter(!(word %in% stop_words$word)) %>% 
+  count(word) %>% 
+  slice_max(n, n = 10)
+```
+
+```{r}
+books_df %>% 
+  filter(word %in% get_sentiments("bing")$word & word != "miss") %>% 
+  count(word) %>% 
+  slice_max(n, n = 10)
+```
+
+```{r}
+books_df %>% 
+  filter(word %in% get_sentiments("bing")$word & word != "miss") %>% 
+  count(word, title, sort = TRUE) %>%
+  group_by(title) %>% 
+  slice_max(n, n = 10) %>%
+  ggplot() +
+  aes(x = word, y = n) +
+  geom_col() +
+  facet_wrap(title)
+```
+

@@ -3,7 +3,7 @@
     "path": "C:/Users/bewar/Desktop/CodeClan/codeclan_homework_PaddyHudson/week_11/day_2/titanic_decision_trees.Rmd",
     "project_path": "titanic_decision_trees.Rmd",
     "type": "r_markdown",
-    "hash": "3984970641",
+    "hash": "2286764249",
     "contents": "",
     "dirty": false,
     "created": 1632900174927.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "71,8",
-        "scrollLine": "65"
+        "cursorPosition": "81,0",
+        "scrollLine": "80"
     },
     "folds": "",
-    "lastKnownWriteTime": 1632901472,
+    "lastKnownWriteTime": 1632908409,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1632901472599,
+    "last_content_update": 1632908409960,
     "read_only": false,
     "read_only_alternatives": []
 }

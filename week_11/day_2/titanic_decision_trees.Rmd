@@ -11,6 +11,7 @@ library(GGally)
 library(splitstackshape)
 library(modelr)
 library(caret)
+library(ggfortify)
 
 titanic_set <- read_csv('data/titanic_decision_tree_data.csv')
 
@@ -32,6 +33,20 @@ titanic_clean <- titanic_set %>%
   select(sex, age_status, class, port_embarkation, sib_sp, parch, survived_flag) %>%
   na.omit()
 ```
+
+```{r}
+titanic_clean <- titanic_set %>% 
+  select(-c(X1, passenger_id, name, ticket, fare, cabin)) %>% 
+  drop_na() %>%
+  mutate(
+    sex = as.factor(sex),
+    survived = factor(survived, c(0,1), labels = c("No", "Yes"), ordered = TRUE),
+    pclass = factor(class, c(3,2,1), labels = c("Third", "Second", "First")),
+    embarked = as.factor(embarked)
+  )
+  
+```
+
 
 ```{r}
 ggpairs(titanic_clean)
@@ -67,8 +82,13 @@ rpart.plot(
 titanic_test_pred <- titanic_test %>% 
   add_predictions(titanic_fit, type = "class")
 
-conf_mat <- confusionMatrix(titanic_test_pred$pred, titanic_test_pred$survived_flag)
+conf_mat <- confusionMatrix(
+  data = titanic_test_pred$pred,
+  reference = titanic_test_pred$survived_flag,
+  positive = "Yes")
 
 conf_mat
 ```
+
+
 

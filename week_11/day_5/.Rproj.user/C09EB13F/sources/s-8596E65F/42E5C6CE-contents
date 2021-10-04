@@ -1,0 +1,46 @@
+---
+title: "Sentiment Analysis"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(tidytext)
+library(janeaustenr)
+```
+
+```{r}
+get_sentiments("afinn") %>% 
+  arrange(value)
+```
+
+```{r}
+get_sentiments("bing")
+
+get_sentiments("loughran")
+
+get_sentiments("nrc")
+```
+```{r}
+book_pride <- tibble(
+    text = prideprejudice,
+    # treat each row as sentence
+    sentence = 1:length(prideprejudice)
+  ) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+```
+```{r}
+book_pride %>% 
+  inner_join(get_sentiments("afinn")) %>% 
+  mutate(bin = cut_width(sentence, width = 50)) %>%
+  group_by(bin) %>% 
+  summarise(
+    mean_sentiment = mean(value)
+  ) %>%
+  ggplot() +
+  aes(x = bin, y = mean_sentiment) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
