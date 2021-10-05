@@ -52,6 +52,6 @@ books_df %>%
   ggplot() +
   aes(x = word, y = n) +
   geom_col() +
-  facet_wrap(title)
+  facet_wrap(~title)
 ```
 
